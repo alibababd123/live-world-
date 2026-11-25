@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="bn">
 <head>
@@ -5,11 +6,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LIVE WORLD</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#090d20;color:#f7f5ff;font-family:Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:#090d20;color:#f7f5ff;font-family:Arial,sans-serif}
 header{padding:20px;background:#111832;font-size:25px;font-weight:bold}
 main{max-width:700px;margin:auto;padding:20px}
 .hero{padding:25px;border-radius:25px;background:linear-gradient(120deg,#34318b,#12618b)}
-h1{font-size:28px}.rooms{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+h1{font-size:28px}
+.rooms{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
 .room{background:#1a2142;padding:28px 12px;border-radius:18px;text-align:center;font-size:19px}
 button{border:0;border-radius:14px;padding:14px 20px;background:#9853ed;color:white;font-size:17px;font-weight:bold;margin-top:14px}
 #panel{display:none;margin-top:20px;padding:16px;background:#1a2142;border-radius:18px}
@@ -20,7 +23,10 @@ video{width:100%;max-height:55vh;border-radius:14px;background:#000;display:none
 <body>
 <header>🌐 LIVE WORLD</header>
 <main>
-<section class="hero"><h1>তোমার গল্প সবার সঙ্গে ভাগ করো</h1><p>লাইভে যোগ দাও, কথা বলো, নতুন বন্ধু খুঁজে নাও।</p></section>
+<section class="hero">
+<h1>তোমার গল্প সবার সঙ্গে ভাগ করো</h1>
+<p>লাইভে যোগ দাও, কথা বলো, নতুন বন্ধু খুঁজে নাও।</p>
+</section>
 <h2>🔥 এখন লাইভ</h2>
 <div class="rooms">
 <div class="room">🎙️<br>গল্পের আড্ডা<br><small>ডেমো রুম</small></div>
@@ -40,9 +46,41 @@ video{width:100%;max-height:55vh;border-radius:14px;background:#000;display:none
 <p style="color:#b9bdd8">Demo version — এখনো প্রকৃত লাইভ সম্প্রচার, অ্যাকাউন্ট বা মেসেজিং নেই।</p>
 </main>
 <script>
-let stream=null;const panel=document.getElementById('panel'),cam=document.getElementById('cam'),status=document.getElementById('status');
-document.getElementById('go').onclick=()=>{panel.style.display='block';panel.scrollIntoView({behavior:'smooth'});};
-document.getElementById('start').onclick=async()=>{try{if(!navigator.mediaDevices?.getUserMedia){status.textContent='এই ব্রাউজারে ক্যামেরা API পাওয়া যাচ্ছে না। HTTPS ঠিকানা দিয়ে খুলেছ কি না দেখো।';return;}stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false});cam.srcObject=stream;cam.style.display='block';status.textContent='ক্যামেরা চালু হয়েছে। এটি শুধু তোমার ফোনে দেখা যাচ্ছে, সম্প্রচার হচ্ছে না।';}catch(e){status.textContent='ক্যামেরা চালু হয়নি: '+e.name+'. ব্রাউজারের Camera permission Allow করো।';}};
-document.getElementById('stop').onclick=()=>{if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;cam.srcObject=null;cam.style.display='none';status.textContent='ক্যামেরা বন্ধ করা হয়েছে।';};
+let stream=null;
+const panel=document.getElementById('panel');
+const cam=document.getElementById('cam');
+const status=document.getElementById('status');
+
+document.getElementById('go').onclick=()=>{
+panel.style.display='block';
+panel.scrollIntoView({behavior:'smooth'});
+};
+
+document.getElementById('start').onclick=async()=>{
+try{
+if(!navigator.mediaDevices?.getUserMedia){
+status.textContent='HTTPS ঠিকানা দিয়ে ওয়েবসাইট খুলে আবার চেষ্টা করো।';
+return;
+}
+stream=await navigator.mediaDevices.getUserMedia({
+video:{facingMode:'user'},
+audio:false
+});
+cam.srcObject=stream;
+cam.style.display='block';
+status.textContent='ক্যামেরা চালু হয়েছে। এটি শুধু তোমার ফোনে দেখা যাচ্ছে।';
+}catch(e){
+status.textContent='ক্যামেরা চালু হয়নি: '+e.name+'. ব্রাউজারের Camera permission Allow করো।';
+}
+};
+
+document.getElementById('stop').onclick=()=>{
+if(stream)stream.getTracks().forEach(t=>t.stop());
+stream=null;
+cam.srcObject=null;
+cam.style.display='none';
+status.textContent='ক্যামেরা বন্ধ করা হয়েছে।';
+};
 </script>
-</body></html>
+</body>
+</html>
