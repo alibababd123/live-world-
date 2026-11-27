@@ -1,92 +1,73 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LIVE WORLD</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;background:#090d20;color:white;font-family:Arial,sans-serif}
-header{padding:20px;background:#111832;text-align:center;font-size:25px;font-weight:bold}
-main{padding:16px;max-width:800px;margin:auto}
-h2{color:#8e9fff}
-button{padding:12px 16px;border:0;border-radius:9px;background:#6858ed;color:white;font-size:15px;margin:5px;cursor:pointer}
-.room{background:#151e3b;padding:16px;border-radius:14px;margin:12px 0}
-video{width:100%;max-width:320px;background:#000;border-radius:12px}
-.people{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.person{background:#202b4b;padding:16px;border-radius:10px;text-align:center}
-.status{color:#9daeff;font-size:14px}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10152d">
+  <meta name="description" content="LiveWorld — connect with people around the world.">
+  <title>LiveWorld — Global Live Community</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./assets/icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<header>🌐 LIVE WORLD</header>
-<main>
-<h2>তোমার গল্প সবার সঙ্গে ভাগ করো</h2>
-<p>একসঙ্গে লাইভে যোগ দাও, কথা বলো, নতুন বন্ধু খুঁজে নাও।</p>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">LW</span><span>Live<span class="brand-accent">World</span><small>GLOBAL COMMUNITY</small></span></a>
+    <nav><a href="#rooms">লাইভ রুম</a><a href="#how">কীভাবে কাজ করে</a></nav>
+    <div class="top-actions"><span id="connection-status" class="status-pill">সংযোগ হচ্ছে…</span><button id="open-auth" class="btn btn-outline">লগইন / যোগ দিন</button><button id="sign-out" class="btn btn-outline hidden">লগআউট</button></div>
+  </header>
 
-<div class="room">
-<h3>🔥 লাইভ রুম</h3>
-<p>🎙️ গল্পের আড্ডা</p>
-<p>🎶 গানের আসর</p>
-<p>🌍 বন্ধুদের মিলনমেলা</p>
-<button onclick="alert('লাইভ রুমের সার্ভার পরবর্তী ধাপে যুক্ত হবে')">＋ Go Live</button>
-<button onclick="alert('রুম সার্ভার পরবর্তী ধাপে যুক্ত হবে')">Join Live</button>
-</div>
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> ONE WORLD. MANY VOICES.</div>
+        <h1>পৃথিবীর মানুষের সাথে<br><span class="gradient-text">এক জায়গায় যুক্ত হও।</span></h1>
+        <p>LiveWorld হলো একটি আন্তর্জাতিক লাইভ কমিউনিটি—রুম তৈরি করো, মানুষের সঙ্গে কথা বলো এবং নতুন বন্ধুত্ব গড়ে তোলো।</p>
+        <div class="hero-actions"><button id="create-room" class="btn btn-primary">＋ লাইভ রুম তৈরি</button><a class="btn btn-ghost" href="#rooms">রুম খুঁজে দেখো <span>↗</span></a></div>
+        <div class="hero-note"><span>●</span> প্রথম সংস্করণ পরীক্ষামূলক · বিনামূল্যের সীমার মধ্যে</div>
+      </div>
+      <div class="hero-art">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="globe"><div class="globe-lines"></div><span class="globe-label">LIVE<br>WORLD</span></div>
+        <div class="float-card card-live"><i></i><span><b>Live community</b><small>Connect across borders</small></span></div>
+        <div class="float-card card-people"><span class="mini-avatars">A&nbsp; M&nbsp; S</span><span><b>Meet new people</b><small>From around the world</small></span></div>
+      </div>
+    </section>
 
-<div class="room">
-<h3>📹 আমার ক্যামেরা</h3>
-<video id="cam" autoplay playsinline muted></video>
-<p class="status" id="status">ক্যামেরা বন্ধ</p>
-<button onclick="startCamera()">ক্যামেরা চালু</button>
-<button onclick="stopCamera()">ক্যামেরা বন্ধ</button>
-</div>
+    <section class="stats">
+      <div><b id="room-count">—</b><span>সক্রিয় রুম</span></div><div><b id="member-count">—</b><span>তোমার রুমের সদস্য</span></div><div><b>Global</b><span>সবার জন্য উন্মুক্ত</span></div>
+    </section>
 
-<div class="room">
-<h3>👑 Host Control</h3>
-<button onclick="muteAll()">সবার মাইক বন্ধ</button>
-<button onclick="unmuteAll()">সবার মাইক চালুর অনুমতি</button>
-<button onclick="alert('ক্যামেরা নিয়ন্ত্রণ সার্ভার যুক্ত হলে চালু হবে')">সবার ক্যামেরা বন্ধের নির্দেশ</button>
-<p id="hostStatus" class="status">হোস্ট কন্ট্রোল প্রস্তুত</p>
-</div>
+    <section id="rooms" class="section">
+      <div class="section-heading"><div><div class="eyebrow">DISCOVER</div><h2>লাইভ রুম <span class="muted">অন্বেষণ করো</span></h2><p>পছন্দের আলোচনায় যোগ দাও, অথবা নিজের রুম তৈরি করো।</p></div><button id="refresh-rooms" class="btn btn-outline">↻ রিফ্রেশ</button></div>
+      <div id="room-list" class="room-grid"><div class="empty-state">রুমের তালিকা লোড হচ্ছে…</div></div>
+    </section>
 
-<div class="room">
-<h3>👥 সদস্যরা</h3>
-<div class="people" id="people">
-<div class="person">👑 Host<br>নিজের ভিডিও</div>
-<div class="person">👤 Member 1</div>
-<div class="person">👤 Member 2</div>
-<div class="person">👤 Member 3</div>
-</div>
-<p class="status">ডেমো সদস্য — প্রকৃত সংযোগ পরবর্তী ধাপে হবে।</p>
-</div>
-</main>
-<script>
-let stream=null;
-let hostMuted=true;
+    <section id="how" class="how-section">
+      <div class="eyebrow">SIMPLE & OPEN</div><h2>শুরু করা খুব সহজ</h2>
+      <div class="steps"><article><span>01</span><h3>অ্যাকাউন্ট খোলো</h3><p>ইমেইল দিয়ে নিরাপদে নিবন্ধন করো।</p></article><article><span>02</span><h3>রুমে যোগ দাও</h3><p>আলোচনার রুম বেছে নিয়ে কমিউনিটিতে যুক্ত হও।</p></article><article><span>03</span><h3>কথা বলো</h3><p>চ্যাট করো এবং অনুমতি দিলে ভিডিওতে অংশ নাও।</p></article></div>
+    </section>
+  </main>
 
-async function startCamera(){
-try{
-stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
-document.getElementById('cam').srcObject=stream;
-document.getElementById('status').textContent='ক্যামেরা ও মাইক্রোফোন চালু';
-}catch(e){
-document.getElementById('status').textContent='ক্যামেরার অনুমতি পাওয়া যায়নি';
-}
-}
-function stopCamera(){
-if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
-document.getElementById('cam').srcObject=null;
-document.getElementById('status').textContent='ক্যামেরা বন্ধ';
-}
-function muteAll(){
-hostMuted=true;
-document.getElementById('hostStatus').textContent='সবার মাইক বন্ধের নির্দেশ দেওয়া হয়েছে।';
-}
-function unmuteAll(){
-hostMuted=false;
-document.getElementById('hostStatus').textContent='সদস্যদের মাইক চালু করার অনুমতি দেওয়া হয়েছে।';
-}
-</script>
+  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">LW</span><span>Live<span class="brand-accent">World</span></span></a><p>একটি প্রাথমিক কমিউনিটি প্রজেক্ট। নিরাপদ ও সম্মানজনক আচরণ বজায় রাখুন।</p><span>© <span id="year"></span> LiveWorld</span></footer>
+
+  <div id="auth-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <div class="modal-panel"><button class="modal-close" data-close="auth-modal">×</button><div class="eyebrow">WELCOME TO LIVEWORLD</div><h2 id="auth-title">কমিউনিটিতে যোগ দাও</h2><p class="modal-sub">ইমেইল দিয়ে অ্যাকাউন্ট তৈরি বা লগইন করো।</p>
+      <div class="tabs"><button class="tab active" data-auth-mode="login">লগইন</button><button class="tab" data-auth-mode="signup">নতুন অ্যাকাউন্ট</button></div>
+      <form id="auth-form"><label id="name-wrap" class="hidden">তোমার নাম<input id="display-name" type="text" maxlength="40" autocomplete="name" placeholder="যেমন: Rahim"></label><label>ইমেইল<input id="email" type="email" required autocomplete="email" placeholder="name@example.com"></label><label>পাসওয়ার্ড<input id="password" type="password" required minlength="6" autocomplete="current-password" placeholder="কমপক্ষে ৬ অক্ষর"></label><button class="btn btn-primary full" type="submit" id="auth-submit">লগইন</button><p id="auth-message" class="form-message" aria-live="polite"></p></form>
+      <p class="fine-print">অ্যাকাউন্ট খুলে তুমি আমাদের কমিউনিটি নিয়ম মেনে চলতে সম্মত হচ্ছ।</p>
+    </div>
+  </div>
+
+  <div id="create-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="create-title"><div class="modal-panel"><button class="modal-close" data-close="create-modal">×</button><div class="eyebrow">START A CONVERSATION</div><h2 id="create-title">নতুন লাইভ রুম</h2><form id="create-form"><label>রুমের নাম<input id="room-title" required maxlength="60" placeholder="যেমন: বন্ধুত্বের আড্ডা"></label><label>বিষয়<select id="room-category"><option>সাধারণ আড্ডা</option><option>ভাষা শেখা</option><option>সংস্কৃতি ও ভ্রমণ</option><option>প্রযুক্তি</option><option>শিক্ষা</option><option>অন্যান্য</option></select></label><label>সংক্ষিপ্ত বিবরণ<textarea id="room-description" maxlength="180" rows="3" placeholder="রুমে কী নিয়ে কথা হবে?"></textarea></label><button class="btn btn-primary full" type="submit">রুম তৈরি করো</button><p id="create-message" class="form-message"></p></form></div></div>
+
+  <div id="room-modal" class="modal hidden room-modal" role="dialog" aria-modal="true" aria-labelledby="active-room-title"><div class="modal-panel room-panel"><button class="modal-close" data-close="room-modal">×</button><div class="room-head"><div><div class="eyebrow">LIVE ROOM</div><h2 id="active-room-title">Room</h2><p id="active-room-meta" class="modal-sub"></p></div><span class="live-tag"><i></i> LIVE</span></div>
+      <div class="room-content"><div class="video-area"><div id="video-grid" class="video-grid"><div class="video-placeholder"><span>🎙️</span><b>রুমে স্বাগতম</b><small>ভিডিও চালু করতে নিচের বাটন চাপো</small></div></div><div class="media-controls"><button id="toggle-mic" class="control-btn">🎙️ মাইক চালু</button><button id="toggle-camera" class="control-btn">📷 ক্যামেরা চালু</button><button id="leave-room" class="control-btn danger">রুম ছাড়ো</button></div><p class="fine-print">ভিডিও সংযোগ পরীক্ষামূলক WebRTC mesh ব্যবহার করে। বড় রুমের জন্য মিডিয়া সার্ভার প্রয়োজন হবে।</p></div>
+      <aside class="chat-area"><div class="chat-title">লাইভ চ্যাট <span id="chat-count">0</span></div><div id="member-list" class="member-list"></div><div id="chat-messages" class="chat-messages"></div><form id="chat-form" class="chat-form"><input id="chat-input" maxlength="500" placeholder="মেসেজ লিখো…" autocomplete="off"><button type="submit" aria-label="পাঠাও">➤</button></form></aside></div>
+    </div></div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./js/app.js"></script>
 </body>
 </html>

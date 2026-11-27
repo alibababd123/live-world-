@@ -1,0 +1,17 @@
+{
+  "name": "LiveWorld — Global Live Community",
+  "short_name": "LiveWorld",
+  "description": "Connect with people around the world.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1022",
+  "theme_color": "#10152d",
+  "icons": [
+    {
+      "src": "./assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
